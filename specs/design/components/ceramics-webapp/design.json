@@ -21,23 +21,42 @@
     11,
     12
   ],
+  "description": "The customer-facing storefront and admin console SPA: product browsing/search/filter, product detail, cart, sign-in-gated checkout, order confirmation, and order history for Shoppers; a role-gated catalog and order management console for the Store Admin. Talks only to ceramics-api and Thunder; holds no payment or email credentials.",
   "dependencies": [
     {
-      "description": "Calls the Ceramics API for product catalog, cart, checkout, order history, and (for the Store Admin role) catalog and order management.",
       "kind": "component",
-      "name": "ceramics-api"
+      "name": "ceramics-api",
+      "description": "Calls the Ceramics API for product catalog, cart, checkout, order history, and (for the Store Admin role) catalog and order management.",
+      "wiring": {
+        "endpoint": {
+          "component": "store-handmade-ceramicsw5-ceramics-api",
+          "name": "http",
+          "visibility": "project",
+          "envBindings": {
+            "address": "CERAMICS_API_URL"
+          }
+        }
+      }
     },
     {
-      "description": "Signs Shoppers and the Store Admin in via Thunder SSO (OIDC + PKCE) and provides the access token attached to every ceramics-api call.",
       "kind": "platform-resource",
       "name": "user-auth",
+      "description": "Signs Shoppers and the Store Admin in via Thunder SSO (OIDC + PKCE) and provides the access token attached to every ceramics-api call.",
+      "resourceType": "thunder-app",
       "parameters": {
         "scopes": "openid profile email"
       },
-      "resourceType": "thunder-app"
+      "wiring": {
+        "ref": "store-handmade-ce-bda5c220",
+        "envBindings": {
+          "client_id": "USER_AUTH_CLIENT_ID",
+          "issuer": "USER_AUTH_ISSUER",
+          "jwks_url": "USER_AUTH_JWKS_URL",
+          "scopes": "USER_AUTH_SCOPES"
+        }
+      }
     }
   ],
-  "description": "The customer-facing storefront and admin console SPA: product browsing/search/filter, product detail, cart, sign-in-gated checkout, order confirmation, and order history for Shoppers; a role-gated catalog and order management console for the Store Admin. Talks only to ceramics-api and Thunder; holds no payment or email credentials.",
   "skillsPinned": [
     "wireframes",
     "react-webapp",
