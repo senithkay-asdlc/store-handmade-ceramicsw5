@@ -1,0 +1,46 @@
+{
+  "name": "ceramics-webapp",
+  "type": "web-application",
+  "version": "0.1.0",
+  "language": "TypeScript",
+  "buildpack": "docker",
+  "appPath": "ceramics-webapp",
+  "entrypoint": "deployment/web-application",
+  "exposure": "internet",
+  "stories": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "dependencies": [
+    {
+      "description": "Calls the Ceramics API for product catalog, cart, checkout, order history, and (for the Store Admin role) catalog and order management.",
+      "kind": "component",
+      "name": "ceramics-api"
+    },
+    {
+      "description": "Signs Shoppers and the Store Admin in via Thunder SSO (OIDC + PKCE) and provides the access token attached to every ceramics-api call.",
+      "kind": "platform-resource",
+      "name": "user-auth",
+      "parameters": {
+        "scopes": "openid profile email"
+      },
+      "resourceType": "thunder-app"
+    }
+  ],
+  "description": "The customer-facing storefront and admin console SPA: product browsing/search/filter, product detail, cart, sign-in-gated checkout, order confirmation, and order history for Shoppers; a role-gated catalog and order management console for the Store Admin. Talks only to ceramics-api and Thunder; holds no payment or email credentials.",
+  "skillsPinned": [
+    "wireframes",
+    "react-webapp",
+    "thunder-authentication"
+  ]
+}

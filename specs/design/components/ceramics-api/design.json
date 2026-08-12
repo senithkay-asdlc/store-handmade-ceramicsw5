@@ -1,0 +1,81 @@
+{
+  "name": "ceramics-api",
+  "type": "service",
+  "version": "0.1.0",
+  "language": "Ballerina",
+  "buildpack": "docker",
+  "appPath": "ceramics-api",
+  "entrypoint": "deployment/service",
+  "exposure": "internet",
+  "stories": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "dependencies": [
+    {
+      "description": "Validates the bearer token the gateway forwards on every call and resolves the caller's role (shopper vs store-admin).",
+      "kind": "platform-resource",
+      "name": "user-auth",
+      "parameters": {
+        "scopes": "openid profile email"
+      },
+      "resourceType": "thunder-app"
+    },
+    {
+      "description": "Stores products (with stock quantity), carts and cart items, and orders with their line items.",
+      "kind": "platform-resource",
+      "name": "ceramics-db",
+      "resourceType": "postgres"
+    },
+    {
+      "config": [
+        {
+          "description": "Stripe secret API key used to create and confirm payment intents.",
+          "key": "STRIPE_API_KEY",
+          "secret": true
+        }
+      ],
+      "description": "Stripe's Payment Intents API, used to charge the shopper's card at checkout. specPath still needs the Stripe OpenAPI document.",
+      "kind": "external",
+      "name": "stripe",
+      "style": "rest-api"
+    },
+    {
+      "candidates": [
+        {
+          "name": "sendgrid",
+          "package": "npm:@sendgrid/mail@^8",
+          "style": "sdk"
+        },
+        {
+          "name": "postmark",
+          "style": "rest-api"
+        },
+        {
+          "name": "resend",
+          "style": "rest-api"
+        }
+      ],
+      "description": "Sends the order confirmation email to the shopper once payment succeeds.",
+      "kind": "external",
+      "name": "email-provider"
+    }
+  ],
+  "description": "The Ceramics store backend: product catalog (CRUD, search/filter, stock tracking with auto sold-out), cart management, checkout with card payment via Stripe, order persistence and history, and order confirmation email. Serves both the Shopper storefront and the Store Admin console behind role-based authorization. Renders no UI itself.",
+  "skillsPinned": [
+    "openapi-conventions",
+    "ballerina",
+    "api-management",
+    "thunder-authentication"
+  ]
+}
