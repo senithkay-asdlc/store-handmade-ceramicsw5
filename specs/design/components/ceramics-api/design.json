@@ -51,24 +51,18 @@
       "style": "rest-api"
     },
     {
-      "candidates": [
+      "config": [
         {
-          "name": "sendgrid",
-          "package": "npm:@sendgrid/mail@^8",
-          "style": "sdk"
-        },
-        {
-          "name": "postmark",
-          "style": "rest-api"
-        },
-        {
-          "name": "resend",
-          "style": "rest-api"
+          "description": "SendGrid API key used to send transactional email.",
+          "key": "SENDGRID_API_KEY",
+          "secret": true
         }
       ],
-      "description": "Sends the order confirmation email to the shopper once payment succeeds.",
+      "description": "SendGrid, used to send the order confirmation email to the shopper once payment succeeds.",
       "kind": "external",
-      "name": "email-provider"
+      "name": "email-provider",
+      "package": "ballerina:ballerinax/sendgrid",
+      "style": "sdk"
     }
   ],
   "description": "The Ceramics store backend: product catalog (CRUD, search/filter, stock tracking with auto sold-out), cart management, checkout with card payment via Stripe, order persistence and history, and order confirmation email. Serves both the Shopper storefront and the Store Admin console behind role-based authorization. Renders no UI itself.",
