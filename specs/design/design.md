@@ -137,3 +137,4 @@ sequenceDiagram
     Webapp->>Api: GET /orders (admin scope)
     Api-->>Webapp: order list
 ```
+
