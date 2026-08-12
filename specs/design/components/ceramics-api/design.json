@@ -45,9 +45,10 @@
           "secret": true
         }
       ],
-      "description": "Stripe's Payment Intents API, used to charge the shopper's card at checkout. specPath still needs the Stripe OpenAPI document.",
+      "description": "Stripe's public REST API (Payment Intents resource), used to charge the shopper's card at checkout.",
       "kind": "external",
       "name": "stripe",
+      "specPath": "https://raw.githubusercontent.com/stripe/openapi/master/openapi/spec3.yaml",
       "style": "rest-api"
     },
     {
